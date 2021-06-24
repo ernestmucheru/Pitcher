@@ -2,12 +2,12 @@ import os
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
 class DevelopmentConfig(Config):
     DEBUG = True
     SECRET_KEY = os.environ.get('SECRET_KEY') or 't0ps3cr3t'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://est:newpassword@localhost/pitcher'
-
+    UPLOADED_PHOTOS_DEST ='app/static'
 class TestingConfig(Config):
     TESTING = True
 class ProductionConfig(Config):
