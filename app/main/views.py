@@ -1,4 +1,4 @@
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,request
 from . import main
 from flask_login import login_required,current_user
 from ..models import Pitch, User, Upvote
@@ -53,6 +53,26 @@ def product_pitches():
 
     return render_template('promotion_pitches.html',pitches=pitches)
 
+@main.route('/pitch/<int:id>', methods=['GET', 'POST'])
+def pitch(id):
+    pitch = Pitch.get_pitch(id)
+    posted_date = pitch.posted.strftime(%m %d, %Y)
 
+    if request.args.get('like'):
+        pitch.likes = pitch.likes + 1
 
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}".format(pitch_id=pitch.id))
+
+    elif request.args.get("dislike"):
+        pitch.dislikes = pitch.dislikes + 1
+
+        db.session.add(pitch)
+        db.session.commit()
+
+        return redirect("/pitch/{pitch_id}.format(pitch_id=pitch.id")
+
+    return render_template('pitch.html', pitch=pitch, date = posted_date)
 
