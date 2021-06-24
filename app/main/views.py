@@ -35,4 +35,24 @@ def new_pitch():
     title='New Pitch'
     return render_template('new_pitch.html', title=title,pitch_form=pitch_form)
 
+@main.route('/pitches/interview_pitches')
+def interview_pitches():
+    pitches = Pitch.get_pitches('interview')
+
+    return render_template('interview_pitches.html',pitches=pitches)
+
+@main.route('/pitches/product_pitches')
+def product_pitches():
+    pitches = Pitch.get_pitches('product')
+
+    return render_template('product_pitches.html',pitches=pitches)
+
+@main.route('/pitches/promotion_pitches')
+def product_pitches():
+    pitches = Pitch.get_pitches('product')
+
+    return render_template('promotion_pitches.html',pitches=pitches)
+
+
+
 
